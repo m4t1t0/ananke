@@ -5,7 +5,6 @@ const app = module.exports = koa();
 const sqlite3 = require('co-sqlite3');
 const router = require('koa-route');
 const Pug = require('koa-pug');
-const crontabModel = require('./model/crontab');
 
 const pug = new Pug({
     viewPath: './views',
@@ -20,8 +19,12 @@ app.use(function *(next){
 });
 
 app.use(router.get('/', function *() {
-    crontabModel.setup();
-    this.render('home.pug', {title: 'Ananke, the revolutionary crontab editor'});
+    let items = yield this.db.all('SELECT * FROM crontab');
+
+    let params = {
+        items: items
+    };
+    this.render('home.pug', params);
 }));
 
 const port = process.env.PORT || 8124;
