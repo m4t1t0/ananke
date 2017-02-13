@@ -1,10 +1,11 @@
 'use strict';
 
 const Sequelize = require('sequelize');
+const Base = require('./base.js');
 
-class Crontab {
+class Crontab extends Base {
     constructor(db) {
-        this.db = db;
+        super(db);
         this.model = db.define('crontab', {
             id: {
                 type: Sequelize.INTEGER,
