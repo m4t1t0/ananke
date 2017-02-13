@@ -3,14 +3,27 @@
 const Sequelize = require('sequelize');
 
 class Crontab {
-    constructor() {
-        this.sequelize = new Sequelize('sqlite://ananke.db');
+    constructor(db) {
+        this.db = db;
+        this.model = db.define('crontab', {
+            id: {
+                type: Sequelize.INTEGER,
+                primaryKey: true
+            },
+            name: {
+                type: Sequelize.STRING
+            }
+        }, {
+            freezeTableName: true,
+            timestamps: false
+        });
     }
 
-    getData() {
-        return sequelize.query("SELECT * FROM crontab", {type: sequelize.QueryTypes.SELECT})
-            .then(function (users) {
-                return users;
-            });
+    findAll() {
+        return this.model.findAll().then(function(result) {
+            return result;
+        });
     }
 }
+
+module.exports = Crontab;

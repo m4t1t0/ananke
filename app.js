@@ -3,6 +3,7 @@
 const koa = require('koa');
 const router = require('koa-route');
 const Pug = require('koa-pug');
+const Sequelize = require('sequelize');
 const Crontab = require('./models/crontab.js');
 
 const app = module.exports = koa();
@@ -14,13 +15,12 @@ const pug = new Pug({
     app: app
 });
 
-
+const sequelize = new Sequelize('sqlite://ananke.db');
+let crontab = new Crontab(sequelize);
 
 app.use(router.get('/', function *() {
-    let items = yield getData();
-
     let params = {
-        items: items
+        items: yield crontab.findAll()
     };
     this.render('home.pug', params);
 }));
