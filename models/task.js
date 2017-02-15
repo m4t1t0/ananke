@@ -6,7 +6,7 @@ const Base = require('./base.js');
 class Crontab extends Base {
     constructor(db) {
         super(db);
-        this.model = db.define('crontab', {
+        this.model = db.define('task', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true

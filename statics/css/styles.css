@@ -1,0 +1,11 @@
+/* General styles file */
+body {
+  padding: 20px;
+}
+a.navbar-brand {
+  color: #fff !important;
+}
+.ananke-header {
+  width: 100%;
+  padding-right: 20px;
+}
