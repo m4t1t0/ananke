@@ -2,21 +2,30 @@ doctype html
 html(lang="en")
     head
         title Ananke
-        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous")
-        link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous")
+
+        link(rel="stylesheet" href="/vendor/css/bootstrap.css")
+        link(rel="stylesheet" href="/vendor/css/bootstrap-theme.css")
+        link(rel="stylesheet" href="/vendor/bootstrap-table/bootstrap-table.css")
         link(rel="stylesheet" href="/css/styles.css")
-        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous")
-        script(src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous")
+
+        script(src="/vendor/js/jquery-3.1.1.js")
+        script(src="/js/main.js")
+        script(src="/vendor/js/bootstrap.js")
+        script(src="/vendor/bootstrap-table/bootstrap-table.js")
 
     body
         div(class="container-fluid")
+
             nav(class="navbar navbar-inverse")
                 div(class="container-fluid")
                     div(class="navbar-header ananke-header")
                         a(class="navbar-brand" href="/") Ananke
                         p(class="navbar-text navbar-right") The task planificator
 
-            div(class="container-fluid")
-                ul
-                    each item in items
-                        li= item.name
+            table(data-toggle="table" data-url="/tasks" data-pagination="true"
+                data-search="true")
+                thead
+                    tr
+                        th(data-field="name" data-sortable="true") Name
+                        th(data-field="description" data-sortable="true") Description
+

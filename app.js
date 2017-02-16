@@ -17,15 +17,26 @@ const pug = new Pug({
 });
 
 const sequelize = new Sequelize('sqlite://ananke.db');
-let task = new Task(sequelize);
+let taskModel = new Task(sequelize);
 
 app.use(serve('statics'));
 
 app.use(router.get('/', function *() {
-    let params = {
-        items: yield task.findAll()
-    };
-    this.render('home.pug', params);
+    this.render('home.pug');
+}));
+
+app.use(router.get('/tasks', function *() {
+    let result = [];
+    let tasks = yield taskModel.findAll();
+
+    for (let task of tasks) {
+        result.push({
+            name: task.name,
+            description: task.description
+        });
+    }
+
+    this.body = result;
 }));
 
 const port = process.env.PORT || 8124;

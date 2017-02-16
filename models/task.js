@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize');
 const Base = require('./base.js');
 
-class Crontab extends Base {
+class Task extends Base {
     constructor(db) {
         super(db);
         this.model = db.define('task', {
@@ -13,10 +13,13 @@ class Crontab extends Base {
             },
             name: {
                 type: Sequelize.STRING
+            },
+            description: {
+                type: Sequelize.STRING
             }
         }, {
             freezeTableName: true,
-            timestamps: false
+            timestamps: true
         });
     }
 
@@ -27,4 +30,4 @@ class Crontab extends Base {
     }
 }
 
-module.exports = Crontab;
+module.exports = Task;
