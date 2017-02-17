@@ -11,7 +11,7 @@
   "dependencies": {
     "koa": "^1.2.*",
     "koa-pug": "^3.0.0-1",
-    "koa-route": "^2.4.2",
+    "koa-router": "^5.4.0",
     "koa-static": "^2.1.0",
     "sequelize": "^3.30.2",
     "sqlite3": "^3.1.8"

@@ -1,13 +1,27 @@
 'use strict';
 
-/*
-function queryParams() {
-    return {
-        type: 'owner',
-        sort: 'forks_count',
-        direction: 'desc',
-        per_page: 100,
-        page: 1
-    };
+function operateFormatter(value, row, index) {
+    return [
+        '<a class="ananke-action-row icon-edit" href="javascript:void(0)" title="Edit">',
+        '<i class="glyphicon glyphicon-pencil"></i>',
+        '</a>',
+        '<a class="ananke-action-row icon-remove" href="javascript:void(0)" title="Remove">',
+        '<i class="glyphicon glyphicon-trash"></i>',
+        '</a>'
+    ].join('');
 }
-*/
+
+window.operateEvents = {
+    'click .icon-edit': function (e, value, row, index) {
+        console.log(value, row, index);
+    },
+    'click .icon-remove': function (e, value, row, index) {
+        $.ajax({
+            url: '/task/' + row.id,
+            type: 'DELETE',
+            success: function(result) {
+                console.log('Borrado!!!');
+            }
+        });
+    },
+};

@@ -1,7 +1,7 @@
 'use strict';
 
 const koa = require('koa');
-const router = require('koa-route');
+const router = require('koa-router')();
 const Pug = require('koa-pug');
 const serve = require('koa-static');
 const Sequelize = require('sequelize');
@@ -21,23 +21,33 @@ let taskModel = new Task(sequelize);
 
 app.use(serve('statics'));
 
-app.use(router.get('/', function *() {
+router.get('/', function *() {
     this.render('home.pug');
-}));
+});
 
-app.use(router.get('/tasks', function *() {
+router.get('/tasks', function *() {
     let result = [];
     let tasks = yield taskModel.findAll();
 
     for (let task of tasks) {
         result.push({
+            id: task.id,
             name: task.name,
             description: task.description
         });
     }
 
     this.body = result;
-}));
+});
+
+router.del('/task/:id', function *() {
+    console.log(this.params);
+    this.body = {status: 'ok'};
+});
+
+app
+    .use(router.routes())
+    .use(router.allowedMethods());
 
 const port = process.env.PORT || 8124;
 app.listen(port);

@@ -9,3 +9,9 @@ a.navbar-brand {
   width: 100%;
   padding-right: 20px;
 }
+a.ananke-action-row {
+  color: #333;
+}
+.icon-edit {
+  margin-right: 15px;
+}
