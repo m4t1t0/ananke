@@ -25,7 +25,7 @@ router.get('/', function *() {
     this.render('home.pug');
 });
 
-router.get('/tasks', function *() {
+router.get('/ajax/tasks', function *() {
     let result = [];
     let tasks = yield taskModel.findAll();
 
@@ -40,7 +40,7 @@ router.get('/tasks', function *() {
     this.body = result;
 });
 
-router.del('/task/:id', function *() {
+router.del('/ajax/task/:id', function *() {
     console.log(this.params);
     this.body = {status: 'ok'};
 });

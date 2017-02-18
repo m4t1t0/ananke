@@ -17,7 +17,7 @@ window.operateEvents = {
     },
     'click .icon-remove': function (e, value, row, index) {
         $.ajax({
-            url: '/task/' + row.id,
+            url: '/ajax/task/' + row.id,
             type: 'DELETE',
             success: function(result) {
                 console.log('Borrado!!!');
