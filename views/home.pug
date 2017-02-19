@@ -1,29 +1,12 @@
 doctype html
 html(lang="en")
-    head
-        title Ananke
-
-        link(rel="stylesheet" href="/vendor/css/bootstrap.css")
-        link(rel="stylesheet" href="/vendor/css/bootstrap-theme.css")
-        link(rel="stylesheet" href="/vendor/bootstrap-table/bootstrap-table.css")
-        link(rel="stylesheet" href="/css/styles.css")
-
-        script(src="/vendor/js/jquery-3.1.1.js")
-        script(src="/js/main.js")
-        script(src="/vendor/js/bootstrap.js")
-        script(src="/vendor/bootstrap-table/bootstrap-table.js")
+    include head.pug
 
     body
         div(class="container-fluid")
-
-            nav(class="navbar navbar-inverse")
-                div(class="container-fluid")
-                    div(class="navbar-header ananke-header")
-                        a(class="navbar-brand" href="/") Ananke
-                        p(class="navbar-text navbar-right") The task planificator
+            include nav.pug
 
             button(type="button" id="add-new-button" class="btn btn-primary") Add new
-
             table(id="main-table" data-toggle="table" data-url="/ajax/tasks" data-pagination="true"
                 data-search="true")
                 thead

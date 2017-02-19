@@ -28,7 +28,7 @@ router.get('/', function *() {
     this.render('home.pug');
 });
 
-router.get('/task/edit/:id', function *() {
+router.get('/task/add', function *() {
     this.render('edit.pug');
 });
 

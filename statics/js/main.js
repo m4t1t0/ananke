@@ -28,7 +28,7 @@ window.operateEvents = {
 
 $(document).ready(function() {
     $('#add-new-button').on('click', function() {
-        console.log('click!');
+        window.location = '/task/add/';
     });
 });
 
