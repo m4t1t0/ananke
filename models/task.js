@@ -22,12 +22,6 @@ class Task extends Base {
             timestamps: true
         });
     }
-
-    findAll() {
-        return this.model.findAll().then(function(result) {
-            return result;
-        });
-    }
 }
 
 module.exports = Task;

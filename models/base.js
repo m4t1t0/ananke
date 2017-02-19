@@ -16,6 +16,24 @@ class Base {
             return true;
         });
     }
+
+    destroy() {
+        return this.instance.destroy().then(function() {
+            return true;
+        });
+    }
+
+    findAll() {
+        return this.model.findAll().then(function(result) {
+            return result;
+        });
+    }
+
+    findById(id) {
+        return this.model.findById(id).then(function(result) {
+            return result;
+        });
+    }
 }
 
 module.exports = Base;

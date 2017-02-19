@@ -41,8 +41,9 @@ router.get('/ajax/tasks', function *() {
 });
 
 router.del('/ajax/task/:id', function *() {
-    console.log(this.params);
-    this.body = {status: 'ok'};
+    let myTask = yield taskModel.findById(this.params.id);
+    yield myTask.destroy();
+    this.body = {http_code: 200, data: []};
 });
 
 app
