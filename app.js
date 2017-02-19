@@ -21,10 +21,20 @@ let taskModel = new Task(sequelize);
 
 app.use(serve('statics'));
 
+//------------------------------------------
+// HTML routes
+//------------------------------------------
 router.get('/', function *() {
     this.render('home.pug');
 });
 
+router.get('/task/edit/:id', function *() {
+    this.render('edit.pug');
+});
+
+//------------------------------------------
+// Ajax routes
+//------------------------------------------
 router.get('/ajax/tasks', function *() {
     let result = [];
     let tasks = yield taskModel.findAll();
@@ -51,6 +61,7 @@ router.del('/ajax/task/:id', function *() {
         this.body = {http_code: 404, error_msg: 'Task not found!'};
     }
 });
+//------------------------------------------
 
 app
     .use(router.routes())
