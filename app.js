@@ -37,7 +37,7 @@ router.get('/ajax/tasks', function *() {
         });
     }
 
-    this.body = result;
+    this.body = {http_code: 200, data: result};
 });
 
 router.del('/ajax/task/:id', function *() {
