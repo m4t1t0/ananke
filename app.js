@@ -42,8 +42,14 @@ router.get('/ajax/tasks', function *() {
 
 router.del('/ajax/task/:id', function *() {
     let myTask = yield taskModel.findById(this.params.id);
-    yield myTask.destroy();
-    this.body = {http_code: 200, data: []};
+
+    if (myTask !== null) {
+        yield myTask.destroy();
+        this.body = {http_code: 200, data: []};
+    } else {
+        this.status = 404;
+        this.body = {http_code: 404, error_msg: 'Task not found!'};
+    }
 });
 
 app

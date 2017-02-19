@@ -20,7 +20,7 @@ window.operateEvents = {
             url: '/ajax/task/' + row.id,
             type: 'DELETE',
             success: function(result) {
-                console.log('Borrado!!!');
+                $('#main-table').bootstrapTable('refresh', {});
             }
         });
     },
