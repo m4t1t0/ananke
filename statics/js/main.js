@@ -28,7 +28,24 @@ window.operateEvents = {
 
 $(document).ready(function() {
     $('#add-new-button').on('click', function() {
-        window.location = '/task/add/';
+        window.location = '/task/add';
+    });
+
+    $('#edit-form-button').on('click', function() {
+        let body = {};
+
+        body.name = $('#input-name').val();
+        body.desc = $('#input-desc').val();
+
+        $.ajax({
+            url: '/ajax/task',
+            type: 'POST',
+            data: JSON.stringify(body),
+            contentType: 'application/json',
+            success: function(result) {
+                window.location = '/';
+            }
+        });
     });
 });
 

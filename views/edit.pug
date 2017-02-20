@@ -5,4 +5,12 @@ html(lang="en")
     body
         div(class="container-fluid")
             include nav.pug
+        form()
+            div(class="form-group")
+                input(type="text" id="input-name" name="input-name" class="form-control" placeholder="Name")
+            div(class="form-group")
+                textarea(class="form-control" id="input-desc" name="input-desc" placeholder="Description")
+            div(class="form-group")
+                button(type="button" id="edit-form-button" class="btn btn-primary") Accept
+
 

@@ -2,6 +2,7 @@
 
 const koa = require('koa');
 const router = require('koa-router')();
+const koaBody   = require('koa-body')();
 const Pug = require('koa-pug');
 const serve = require('koa-static');
 const Sequelize = require('sequelize');
@@ -35,7 +36,7 @@ router.get('/task/add', function *() {
 //------------------------------------------
 // Ajax routes
 //------------------------------------------
-router.get('/ajax/tasks', function *() {
+router.get('/ajax/tasks', function *(next) {
     let result = [];
     let tasks = yield taskModel.findAll();
 
@@ -50,7 +51,7 @@ router.get('/ajax/tasks', function *() {
     this.body = {http_code: 200, data: result};
 });
 
-router.del('/ajax/task/:id', function *() {
+router.del('/ajax/task/:id', function *(next) {
     let myTask = yield taskModel.findById(this.params.id);
 
     if (myTask !== null) {
@@ -59,6 +60,17 @@ router.del('/ajax/task/:id', function *() {
     } else {
         this.status = 404;
         this.body = {http_code: 404, error_msg: 'Task not found!'};
+    }
+});
+
+router.post('/ajax/task', koaBody, function *(next) {
+    let req = this.request.body;
+    if (req.name && req.desc) {
+        yield taskModel.create({name: req.name, description: req.desc}, {});
+        this.body = {http_code: 200, data: [{id: yield taskModel.getLastInsertRowid()}]};
+    } else {
+        this.status = 500;
+        this.body = {http_code: 500, error_msg: 'Not enought data!'};
     }
 });
 //------------------------------------------
