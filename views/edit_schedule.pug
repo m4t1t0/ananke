@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+    include head.pug
+
+    body
+        div(class="container-fluid")
+            include nav.pug
+        form()
+            div(class="form-group")
+                input(type="text" id="schedule-name" name="schedule-name" class="form-control" placeholder="Name")
+            div(class="form-group")
+                input(type="text" id="schedule-pattern" name="schedule-pattern" class="form-control" placeholder="Pattern")
+            div(class="form-group")
+                button(type="button" id="schedule-edit-submit" class="btn btn-primary") Accept
+
+

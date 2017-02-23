@@ -6,14 +6,14 @@ html(lang="en")
         div(class="container-fluid")
             include nav.pug
 
-            button(type="button" id="add-new-task-button" class="btn btn-primary") Add new
-            table(id="tasks-table" data-toggle="table" data-url="/ajax/tasks" data-pagination="true"
+            button(type="button" id="add-new-schedule-button" class="btn btn-primary") Add new
+            table(id="schedules-table" data-toggle="table" data-url="/ajax/schedules" data-pagination="true"
                 data-search="true")
                 thead
                     tr
                         th(data-field="name" data-sortable="true") Name
-                        th(data-field="description" data-sortable="true") Description
+                        th(data-field="pattern" data-sortable="false" data-searchable="false") Pattern
                         th(data-sortable="false" data-searchable="false" data-field="operate"
-                            data-formatter="operateFormatterTask" data-events="operateEvents"
+                            data-formatter="operateFormatterSchedule" data-events="operateEvents"
                             data-width="60px") Actions
 
