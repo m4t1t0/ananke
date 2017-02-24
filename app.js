@@ -110,6 +110,18 @@ router.post('/ajax/schedule', koaBody, function *(next) {
         this.body = {http_code: 500, error_msg: 'Not enought data!'};
     }
 });
+
+router.del('/ajax/schedule/:id', function *(next) {
+    let mySchedule = yield scheduleModel.findById(this.params.id);
+
+    if (mySchedule !== null) {
+        yield mySchedule.destroy();
+        this.body = {http_code: 200, data: []};
+    } else {
+        this.status = 404;
+        this.body = {http_code: 404, error_msg: 'Schedule not found!'};
+    }
+});
 //------------------------------------------
 
 app

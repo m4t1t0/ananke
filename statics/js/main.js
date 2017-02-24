@@ -31,7 +31,7 @@ window.operateEvents = {
             url: '/ajax/task/' + row.id,
             type: 'DELETE',
             success: function(result) {
-                $('#task-table').bootstrapTable('refresh', {});
+                $('#tasks-table').bootstrapTable('refresh', {});
             }
         });
     },
@@ -39,12 +39,13 @@ window.operateEvents = {
     'click #edit-schedule': function (e, value, row, index) {
         console.log(value, row, index);
     },
-    'click #remove-schechule': function (e, value, row, index) {
+    'click #remove-schedule': function (e, value, row, index) {
         $.ajax({
             url: '/ajax/schedule/' + row.id,
             type: 'DELETE',
             success: function(result) {
-                $('#schedule-table').bootstrapTable('refresh', {});
+                console.log(result);
+                $('#schedules-table').bootstrapTable('refresh', {});
             }
         });
     },
@@ -88,7 +89,7 @@ $(document).ready(function() {
             data: JSON.stringify(body),
             contentType: 'application/json',
             success: function(result) {
-                window.location = '/';
+                window.location = '/schedules';
             }
         });
     });
