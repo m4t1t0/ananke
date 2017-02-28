@@ -44,7 +44,6 @@ window.operateEvents = {
             url: '/ajax/schedule/' + row.id,
             type: 'DELETE',
             success: function(result) {
-                console.log(result);
                 $('#schedules-table').bootstrapTable('refresh', {});
             }
         });

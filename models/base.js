@@ -14,9 +14,7 @@ class Base {
     }
 
     create(fields, params) {
-        return this.model.create(fields, params).then(function(result) {
-            return result;
-        });
+        return this.model.create(fields, params).then(result => result);
     }
 
     query(sql) {
@@ -24,21 +22,15 @@ class Base {
     }
 
     getLastInsertRowid() {
-        return this.query("SELECT last_insert_rowid() AS lastid").then(function(result) {
-            return result[0][0].lastid;
-        });
+        return this.query("SELECT last_insert_rowid() AS lastid").then(result => result[0][0].lastid);
     }
 
     findAll() {
-        return this.model.findAll().then(function(result) {
-            return result;
-        });
+        return this.model.findAll().then(result => result);
     }
 
     findById(id) {
-        return this.model.findById(id).then(function(result) {
-            return result;
-        });
+        return this.model.findById(id).then(result => result);
     }
 }
 
