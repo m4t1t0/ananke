@@ -16,6 +16,12 @@ class Task extends Base {
             },
             description: {
                 type: Sequelize.STRING
+            },
+            schedule_id: {
+                type: Sequelize.INTEGER
+            },
+            command: {
+                type: Sequelize.STRING
             }
         }, {
             freezeTableName: true,

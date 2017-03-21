@@ -64,6 +64,8 @@ $(document).ready(function() {
 
         body.name = $('#task-name').val();
         body.desc = $('#task-desc').val();
+        body.schedule_id = $('#task-schedule').val();
+        body.command = $('#task-command').val();
 
         $.ajax({
             url: '/ajax/task',
@@ -91,6 +93,19 @@ $(document).ready(function() {
                 window.location = '/schedules';
             }
         });
+    });
+
+    $.ajax({
+        url: '/ajax/schedules',
+        type: 'GET',
+        success: function(data) {
+            $.each(data.data, function (i, item) {
+                $('#task-schedule').append($('<option>', {
+                    value: item.id,
+                    text : item.name + ' [ ' + item.pattern + ' ]'
+                }));
+            });
+        }
     });
 });
 

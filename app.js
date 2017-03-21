@@ -54,7 +54,9 @@ router.get('/ajax/tasks', function *(next) {
         result.push({
             id: task.id,
             name: task.name,
-            description: task.description
+            description: task.description,
+            schedule_id: task.schedule_id,
+            command: task.command
         });
     }
 
@@ -90,8 +92,15 @@ router.del('/ajax/task/:id', function *(next) {
 
 router.post('/ajax/task', koaBody, function *(next) {
     let req = this.request.body;
-    if (req.name && req.desc) {
-        yield taskModel.create({name: req.name, description: req.desc}, {});
+
+    if (req.name && req.desc && req.schedule_id && req.command) {
+        let params = {
+            name: req.name,
+            description: req.desc,
+            schedule_id: req.schedule_id,
+            command: req.command
+        };
+        yield taskModel.create(params, {});
         this.body = {http_code: 200, data: [{id: yield taskModel.getLastInsertRowid()}]};
     } else {
         this.status = 500;
