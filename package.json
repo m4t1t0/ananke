@@ -9,6 +9,7 @@
   "author": "Rafael Matito",
   "license": "ISC",
   "dependencies": {
+    "cron-parser": "^2.4.0",
     "koa": "^1.4.0",
     "koa-body": "^1.6.0",
     "koa-pug": "^3.0.0-1",
