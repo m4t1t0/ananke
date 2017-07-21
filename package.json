@@ -15,6 +15,7 @@
     "koa-pug": "^3.0.0-1",
     "koa-router": "^5.4.2",
     "koa-static": "^2.1.0",
+    "moment": "^2.18.1",
     "sequelize": "^3.30.4",
     "sqlite3": "^3.1.8"
   }
