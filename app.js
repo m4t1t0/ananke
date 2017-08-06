@@ -48,15 +48,14 @@ router.get('/schedule/add', function *() {
 //------------------------------------------
 router.get('/ajax/tasks', function *(next) {
     let result = [];
-    let tasks = yield taskModel.findAll();
+    let tasks = yield taskModel.findAllWithExecution();
 
     for (let task of tasks) {
         result.push({
             id: task.id,
             name: task.name,
-            description: task.description,
-            schedule_id: task.schedule_id,
-            command: task.command
+            schedule_name: task.schedule_name,
+            status: task.status
         });
     }
 

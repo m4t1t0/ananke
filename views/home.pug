@@ -7,15 +7,14 @@ html(lang="en")
             include nav.pug
 
             button(type="button" id="add-new-task-button" class="btn btn-primary") Add new
-            button(type="button" id="manage-schedules" class="btn btn-primary") Manage schedules
+            button(type="button" id="manage-schedules-button" class="btn btn-primary") Manage schedules
             table(id="tasks-table" data-toggle="table" data-url="/ajax/tasks" data-pagination="true"
                 data-search="true")
                 thead
                     tr
                         th(data-field="name" data-sortable="true") Name
-                        th(data-field="description" data-sortable="true") Description
-                        th(data-field="schedule_id" data-sortable="true") Schedule Id
-                        th(data-field="command" data-sortable="false") Command
+                        th(data-field="schedule_name" data-sortable="true") Schedule
+                        th() Status
                         th(data-sortable="false" data-searchable="false" data-field="operate"
                             data-formatter="operateFormatterTask" data-events="operateEvents"
                             data-width="60px") Actions

@@ -35,6 +35,14 @@ class Task extends Base {
             " INNER JOIN schedule s ON t.schedule_id = s.id";
         return this.db.query(sql, {type: this.db.QueryTypes.SELECT});
     }
+
+    findAllWithExecution() {
+        let sql = "SELECT t.id, t.name, t.description, t.command, s.name AS schedule_name, s.pattern, e.status" +
+            " FROM task t" +
+            " INNER JOIN schedule s ON t.schedule_id = s.id" +
+            " LEFT JOIN execution e ON e.task_id = t.id";
+        return this.db.query(sql, {type: this.db.QueryTypes.SELECT});
+    }
 }
 
 module.exports = Task;

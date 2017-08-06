@@ -55,6 +55,10 @@ $(document).ready(function() {
         window.location = '/task/add';
     });
 
+    $('#manage-schedules-button').on('click', function() {
+        window.location = '/schedules';
+    });
+
     $('#add-new-schedule-button').on('click', function() {
         window.location = '/schedule/add';
     });
