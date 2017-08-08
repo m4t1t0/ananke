@@ -6,15 +6,17 @@ html(lang="en")
         div(class="container-fluid")
             include nav.pug
         form()
-            div(class="form-group")
+            div(class="form-group col-md-12")
                 input(type="text" id="task-name" name="task-name" class="form-control" placeholder="Name")
-            div(class="form-group")
+            div(class="form-group col-md-12")
                 textarea(class="form-control" id="task-desc" name="task-desc" placeholder="Description")
-            div(class="form-group")
+            div(class="form-group col-md-8 col-xs-12")
                 select(class="form-control" id="task-schedule" name="task-schedule")
-            div(class="form-group")
+            div(class="form-group col-md-4 col-xs-12")
+                button(class="form-control" type="button" id="manage-schedules-button" class="btn btn-default") Manage schedules
+            div(class="form-group col-md-12")
                 textarea(class="form-control" id="task-command" name="task-command" placeholder="Command")
-            div(class="form-group")
-                button(type="button" id="task-edit-submit" class="btn btn-primary") Accept
+            div(class="form-group col-md-12")
+                button(type="button" id="task-edit-submit" class="form-control btn btn-primary") Accept
 
 
