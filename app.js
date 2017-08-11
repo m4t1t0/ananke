@@ -32,7 +32,7 @@ router.get('/', function *() {
 });
 
 router.get('/task/add', function *() {
-    this.render('edit_task.pug');
+    this.render('edit_task.pug', {task: {}});
 });
 
 router.get('/schedules', function *() {
@@ -40,7 +40,29 @@ router.get('/schedules', function *() {
 });
 
 router.get('/schedule/add', function *() {
-    this.render('edit_schedule.pug');
+    this.render('edit_schedule.pug', {schedule: {}});
+});
+
+router.get('/ajax/task/:id', function *(next) {
+    let myTask = yield taskModel.findById(this.params.id);
+
+    if (myTask !== null) {
+        this.render('edit_task.pug', {task: myTask});
+    } else {
+        this.status = 404;
+        this.body = {http_code: 404, error_msg: 'Task not found!'};
+    }
+});
+
+router.get('/ajax/schedule/:id', function *(next) {
+    let mySchedule = yield scheduleModel.findById(this.params.id);
+
+    if (mySchedule !== null) {
+        this.render('edit_schedule.pug', {schedule: mySchedule});
+    } else {
+        this.status = 404;
+        this.body = {http_code: 404, error_msg: 'Schedule not found!'};
+    }
 });
 
 //------------------------------------------

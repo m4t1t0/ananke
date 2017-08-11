@@ -24,7 +24,7 @@ function operateFormatterSchedule(value, row, index) {
 
 window.operateEvents = {
     'click #edit-task': function (e, value, row, index) {
-        console.log(value, row, index);
+        $(location).attr('href', '/ajax/task/' + row.id);
     },
     'click #remove-task': function (e, value, row, index) {
         $.ajax({
@@ -37,7 +37,7 @@ window.operateEvents = {
     },
 
     'click #edit-schedule': function (e, value, row, index) {
-        console.log(value, row, index);
+        $(location).attr('href', '/ajax/schedule/' + row.id);
     },
     'click #remove-schedule': function (e, value, row, index) {
         $.ajax({

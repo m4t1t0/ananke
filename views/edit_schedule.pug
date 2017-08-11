@@ -7,9 +7,9 @@ html(lang="en")
             include nav.pug
         form()
             div(class="form-group col-md-12")
-                input(type="text" id="schedule-name" name="schedule-name" class="form-control" placeholder="Name")
+                input(type="text" id="schedule-name" name="schedule-name" class="form-control" placeholder="Name" value=schedule.name)
             div(class="form-group col-md-12")
-                input(type="text" id="schedule-pattern" name="schedule-pattern" class="form-control" placeholder="Pattern")
+                input(type="text" id="schedule-pattern" name="schedule-pattern" class="form-control" placeholder="Pattern" value=schedule.pattern)
             div(class="form-group col-md-12")
                 button(type="button" id="schedule-edit-submit" class="form-control btn btn-primary") Accept
 
