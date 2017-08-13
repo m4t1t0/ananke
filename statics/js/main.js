@@ -65,11 +65,19 @@ $(document).ready(function() {
 
     $('#task-edit-submit').on('click', function() {
         let body = {};
+        let errorMessageContainer = $('#error-alert');
 
+        body.id = $('#task-id').val();
         body.name = $('#task-name').val();
         body.desc = $('#task-desc').val();
         body.schedule_id = $('#task-schedule').val();
         body.command = $('#task-command').val();
+
+        if (body.name == '' || body.desc == '' || body.schedule_id == '' || body.command == '') {
+            errorMessageContainer.html('Please fill all the fields');
+            errorMessageContainer.show();
+            return;
+        }
 
         $.ajax({
             url: '/ajax/task',
@@ -84,9 +92,17 @@ $(document).ready(function() {
 
     $('#schedule-edit-submit').on('click', function() {
         let body = {};
+        let errorMessageContainer = $('#error-alert');
 
+        body.id = $('#schedule-id').val();
         body.name = $('#schedule-name').val();
         body.pattern = $('#schedule-pattern').val();
+
+        if (body.name == '' || body.pattern == '') {
+            errorMessageContainer.html('Please fill all the fields');
+            errorMessageContainer.show();
+            return;
+        }
 
         $.ajax({
             url: '/ajax/schedule',
@@ -95,6 +111,11 @@ $(document).ready(function() {
             contentType: 'application/json',
             success: function(result) {
                 window.location = '/schedules';
+            },
+            error: function(result) {
+                let errorMessage = result.responseJSON.data[0].message;
+                errorMessageContainer.html(errorMessage);
+                errorMessageContainer.show();
             }
         });
     });

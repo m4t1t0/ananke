@@ -17,6 +17,10 @@ class Base {
         return this.model.create(fields, params).then(result => result);
     }
 
+    update(fields, params) {
+        return this.update(fields, params).then(result => result);
+    }
+
     query(sql) {
         return this.db.query(sql);
     }

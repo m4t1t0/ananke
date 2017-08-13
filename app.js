@@ -8,6 +8,7 @@ const serve = require('koa-static');
 const Sequelize = require('sequelize');
 const Task = require('./models/task.js');
 const Schedule = require('./models/schedule.js');
+const cronParser = require('cron-parser');
 
 const app = module.exports = koa();
 
@@ -77,6 +78,7 @@ router.get('/ajax/tasks', function *(next) {
             id: task.id,
             name: task.name,
             schedule_name: task.schedule_name,
+            command: task.command,
             status: task.status
         });
     }
@@ -121,8 +123,16 @@ router.post('/ajax/task', koaBody, function *(next) {
             schedule_id: req.schedule_id,
             command: req.command
         };
-        yield taskModel.create(params, {});
-        this.body = {http_code: 200, data: [{id: yield taskModel.getLastInsertRowid()}]};
+
+        if (req.id != '') {
+            let myTask = yield taskModel.findById(req.id);
+            params.id = req.id;
+            yield myTask.update(params, {});
+            this.body = {http_code: 200, data: [{id: req.id}]};
+        } else {
+            yield taskModel.create(params, {});
+            this.body = {http_code: 200, data: [{id: yield taskModel.getLastInsertRowid()}]};
+        }
     } else {
         this.status = 500;
         this.body = {http_code: 500, error_msg: 'Not enought data!'};
@@ -133,8 +143,26 @@ router.post('/ajax/schedule', koaBody, function *(next) {
     let req = this.request.body;
 
     if (req.name && req.pattern) {
-        yield scheduleModel.create({name: req.name, pattern: req.pattern}, {});
-        this.body = {http_code: 200, data: [{id: yield scheduleModel.getLastInsertRowid()}]};
+        let valid = true;
+        try {
+            cronParser.parseExpression(req.pattern);
+        } catch (e) {
+            valid = false;
+        }
+
+        if (valid) {
+            if (req.id != '') {
+                let mySchedule = yield scheduleModel.findById(req.id);
+                yield mySchedule.update({id: req.id, name: req.name, pattern: req.pattern}, {});
+                this.body = {http_code: 200, data: [{id: req.id}]};
+            } else {
+                yield scheduleModel.create({name: req.name, pattern: req.pattern}, {});
+                this.body = {http_code: 200, data: [{id: yield scheduleModel.getLastInsertRowid()}]};
+            }
+        } else {
+            this.status = 400;
+            this.body = {http_code: 400, data: [{message: 'Invalid pattern'}]};
+        }
     } else {
         this.status = 500;
         this.body = {http_code: 500, error_msg: 'Not enought data!'};

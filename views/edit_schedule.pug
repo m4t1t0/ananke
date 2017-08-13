@@ -5,7 +5,11 @@ html(lang="en")
     body
         div(class="container-fluid")
             include nav.pug
+
+        div(id="error-alert" class="alert alert-danger collapse")
+
         form()
+            input(type="hidden" id="schedule-id" value=schedule.id)
             div(class="form-group col-md-12")
                 input(type="text" id="schedule-name" name="schedule-name" class="form-control" placeholder="Name" value=schedule.name)
             div(class="form-group col-md-12")
