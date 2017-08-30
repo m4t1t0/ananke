@@ -47,7 +47,7 @@ window.operateEvents = {
                 $('#schedules-table').bootstrapTable('refresh', {});
             }
         });
-    },
+    }
 };
 
 $(document).ready(function() {
