@@ -15,3 +15,13 @@ a.ananke-action-row {
 .icon-edit {
   margin-right: 15px;
 }
+.execution-success {
+  background-color: #a1d490;
+}
+a {
+  color: #000;
+}
+a:hover {
+  color: #000;
+  text-decoration: none;
+}

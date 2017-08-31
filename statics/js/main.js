@@ -22,6 +22,21 @@ function operateFormatterSchedule(value, row, index) {
     ].join('');
 }
 
+function rowStyle(row, index) {
+    switch (row.status) {
+        case 0:
+            return {
+                classes: 'execution-success'
+            };
+        case 1:
+            return {
+                classes: 'execution-error'
+            };
+        default:
+            return {};
+    }
+}
+
 window.operateEvents = {
     'click #edit-task': function (e, value, row, index) {
         $(location).attr('href', '/ajax/task/' + row.id);
@@ -130,6 +145,22 @@ $(document).ready(function() {
                     text : item.name + ' [ ' + item.pattern + ' ]'
                 }));
             });
+        }
+    });
+
+    $('#tasks-table').on('load-success.bs.table', function() {
+        let data = $('#tasks-table').bootstrapTable('getData');
+
+        for (let i = 0; i < data.length; i++) {
+            let dataRow = data[i];
+            switch (dataRow.status) {
+                case 0:
+                    $('#tasks-table').bootstrapTable('updateCell', {index: i, field: 'status_icon', value: '<a class="glyphicon glyphicon-list-alt" href=""></a>'});
+                    break;
+                case 1:
+                    $('#tasks-table').bootstrapTable('updateCell', {index: i, field: 'status_icon', value: '<a class="glyphicon glyphicon-list-alt" href=""></a>'});
+                    break;
+            }
         }
     });
 });
