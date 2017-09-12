@@ -25,6 +25,12 @@ a.execution-status {
 .execution-success {
   background-color: #a1d490;
 }
+.execution-error {
+  background-color: #ff5454;
+}
+.execution-inactive {
+  background-color: #d3d3d3;
+}
 #modal-execution {
   padding-top: 200px;
 }

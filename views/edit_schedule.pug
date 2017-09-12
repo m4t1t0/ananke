@@ -11,9 +11,13 @@ html(lang="en")
         form()
             input(type="hidden" id="schedule-id" value=schedule.id)
             div(class="form-group col-md-12")
-                input(type="text" id="schedule-name" name="schedule-name" class="form-control" placeholder="Name" value=schedule.name)
+                label(for="schedule-name" class="col-md-2") Name
+                div(class="col-md-10")
+                    input(type="text" id="schedule-name" name="schedule-name" class="form-control" placeholder="Name" value=schedule.name)
             div(class="form-group col-md-12")
-                input(type="text" id="schedule-pattern" name="schedule-pattern" class="form-control" placeholder="Pattern" value=schedule.pattern)
+                label(for="schedule-pattern" class="col-md-2") Pattern
+                div(class="col-md-10")
+                    input(type="text" id="schedule-pattern" name="schedule-pattern" class="form-control" placeholder="Pattern" value=schedule.pattern)
             div(class="form-group col-md-12")
                 button(type="button" id="schedule-edit-submit" class="form-control btn btn-primary") Accept
 

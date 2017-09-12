@@ -22,6 +22,9 @@ class Task extends Base {
             },
             command: {
                 type: Sequelize.STRING
+            },
+            active: {
+                type: Sequelize.BOOLEAN
             }
         }, {
             freezeTableName: true,
@@ -29,15 +32,25 @@ class Task extends Base {
         });
     }
 
+    //TODO: Refactorizar para no tener tantos métodos similares
+
     findAllWithPattern() {
-        let sql = "SELECT t.id, t.name, t.description, s.pattern, t.command" +
+        let sql = "SELECT t.id, t.name, t.description, s.pattern, t.command, t.active" +
             " FROM task t" +
             " INNER JOIN schedule s ON t.schedule_id = s.id";
         return this.db.query(sql, {type: this.db.QueryTypes.SELECT});
     }
 
+    findActiveWithPattern() {
+        let sql = "SELECT t.id, t.name, t.description, s.pattern, t.command, t.active" +
+            " FROM task t" +
+            " INNER JOIN schedule s ON t.schedule_id = s.id" +
+            " WHERE t.active = 1";
+        return this.db.query(sql, {type: this.db.QueryTypes.SELECT});
+    }
+
     findAllWithExecution() {
-        let sql = "SELECT t.id, t.name, t.description, t.command, s.name AS schedule_name, s.pattern, e.status" +
+        let sql = "SELECT t.id, t.name, t.description, t.command, t.active, s.name AS schedule_name, s.pattern, e.status" +
             " FROM task t" +
             " INNER JOIN schedule s ON t.schedule_id = s.id" +
             " LEFT JOIN execution e ON e.task_id = t.id";

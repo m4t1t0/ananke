@@ -23,6 +23,15 @@ function operateFormatterSchedule(value, row, index) {
 }
 
 function rowStyle(row, index) {
+
+    console.log(row);
+
+    if (row.active == 0) {
+        return {
+            classes: 'execution-inactive'
+        };
+    }
+
     switch (row.status) {
         case 0:
             return {
@@ -39,7 +48,7 @@ function rowStyle(row, index) {
 
 window.operateEvents = {
     'click #edit-task': function (e, value, row, index) {
-        $(location).attr('href', '/ajax/task/' + row.id);
+        $(location).attr('href', '/task/' + row.id);
     },
     'click #remove-task': function (e, value, row, index) {
         $.ajax({
@@ -52,7 +61,7 @@ window.operateEvents = {
     },
 
     'click #edit-schedule': function (e, value, row, index) {
-        $(location).attr('href', '/ajax/schedule/' + row.id);
+        $(location).attr('href', '/schedule/' + row.id);
     },
     'click #remove-schedule': function (e, value, row, index) {
         $.ajax({
@@ -108,6 +117,7 @@ $(document).ready(function() {
         body.desc = $('#task-desc').val();
         body.schedule_id = $('#task-schedule').val();
         body.command = $('#task-command').val();
+        body.active = $('#task-active').is(':checked') ? 1 : 0;
 
         if (body.name == '' || body.desc == '' || body.schedule_id == '' || body.command == '') {
             errorMessageContainer.html('Please fill all the fields');

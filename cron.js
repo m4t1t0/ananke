@@ -19,7 +19,8 @@ let now = moment();
 let nowPlusOneMinute = moment().add(1, 'minutes');
 
 //TODO: Hacer esto con async/await o con yield. Quitar las promesas interiores
-taskModel.findAllWithPattern().then(function(tasks) {
+
+taskModel.findActiveWithPattern().then(function(tasks) {
     for (let task of tasks) {
         let pattern = task.pattern;
         let interval = cronParser.parseExpression(pattern, cronParserOptions);

@@ -46,7 +46,7 @@ router.get('/schedule/add', function *() {
     this.render('edit_schedule.pug', {schedule: {}});
 });
 
-router.get('/ajax/task/:id', function *(next) {
+router.get('/task/:id', function *(next) {
     let myTask = yield taskModel.findById(this.params.id);
 
     if (myTask !== null) {
@@ -57,7 +57,7 @@ router.get('/ajax/task/:id', function *(next) {
     }
 });
 
-router.get('/ajax/schedule/:id', function *(next) {
+router.get('/schedule/:id', function *(next) {
     let mySchedule = yield scheduleModel.findById(this.params.id);
 
     if (mySchedule !== null) {
@@ -81,9 +81,12 @@ router.get('/ajax/tasks', function *(next) {
             name: task.name,
             schedule_name: task.schedule_name,
             command: task.command,
-            status: task.status
+            status: task.status,
+            active: task.active
         });
     }
+
+    console.log(result);
 
     this.body = {http_code: 200, data: result};
 });
@@ -134,7 +137,8 @@ router.post('/ajax/task', koaBody, function *(next) {
             name: req.name,
             description: req.desc,
             schedule_id: req.schedule_id,
-            command: req.command
+            command: req.command,
+            active: req.active
         };
 
         if (req.id != '') {
