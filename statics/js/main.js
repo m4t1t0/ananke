@@ -78,6 +78,27 @@ $(document).ready(function() {
         window.location = '/schedule/add';
     });
 
+    $('#modal-close-button').on('click', function() {
+        $('#modal-execution').fadeTo(100, 0);
+        $('#modal-execution').hide();
+    });
+
+    $(document).on('click', '.execution-status', function(e) {
+        $('#modal-execution').fadeTo(100, 1);
+        $('#modal-execution').show();
+
+        let executionId = $(this).data('taskId');
+        $.ajax({
+            url: '/ajax/execution/' + executionId,
+            type: 'GET',
+            success: function(data) {
+                $('#excecution-content').html(data.data[0].output);
+            }
+        });
+
+        e.preventDefault();
+    });
+
     $('#task-edit-submit').on('click', function() {
         let body = {};
         let errorMessageContainer = $('#error-alert');
@@ -155,10 +176,18 @@ $(document).ready(function() {
             let dataRow = data[i];
             switch (dataRow.status) {
                 case 0:
-                    $('#tasks-table').bootstrapTable('updateCell', {index: i, field: 'status_icon', value: '<a class="glyphicon glyphicon-list-alt" href=""></a>'});
+                    $('#tasks-table').bootstrapTable('updateCell', {
+                        index: i,
+                        field: 'status_icon',
+                        value: '<a class="execution-status glyphicon glyphicon-list-alt" href="" data-task-id="' + dataRow.id + '"></a>'
+                    });
                     break;
                 case 1:
-                    $('#tasks-table').bootstrapTable('updateCell', {index: i, field: 'status_icon', value: '<a class="glyphicon glyphicon-list-alt" href=""></a>'});
+                    $('#tasks-table').bootstrapTable('updateCell', {
+                        index: i,
+                        field: 'status_icon',
+                        value: '<a class="execution-status glyphicon glyphicon-list-alt" href="" data-task-id="' + dataRow.id + '"></a>'
+                    });
                     break;
             }
         }

@@ -8,6 +8,7 @@ const serve = require('koa-static');
 const Sequelize = require('sequelize');
 const Task = require('./models/task.js');
 const Schedule = require('./models/schedule.js');
+const Execution = require('./models/execution.js');
 const cronParser = require('cron-parser');
 
 const app = module.exports = koa();
@@ -22,6 +23,7 @@ const pug = new Pug({
 const sequelize = new Sequelize('sqlite://ananke.db');
 let taskModel = new Task(sequelize);
 let scheduleModel = new Schedule(sequelize);
+let executionModel = new Execution(sequelize);
 
 app.use(serve('statics'));
 
@@ -110,6 +112,17 @@ router.del('/ajax/task/:id', function *(next) {
     } else {
         this.status = 404;
         this.body = {http_code: 404, error_msg: 'Task not found!'};
+    }
+});
+
+router.get('/ajax/execution/:id', function *(next) {
+    let myExecution = yield executionModel.findById(this.params.id);
+
+    if (myExecution !== null) {
+        this.body = {http_code: 200, data: [{output: myExecution.output}]};
+    } else {
+        this.status = 404;
+        this.body = {http_code: 404, error_msg: 'Execution not found!'};
     }
 });
 
