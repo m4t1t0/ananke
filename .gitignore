@@ -1,3 +1,4 @@
 node_modules
 .idea
+.pm2
 ananke.db

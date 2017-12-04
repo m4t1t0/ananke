@@ -20,7 +20,7 @@ const pug = new Pug({
     app: app
 });
 
-const sequelize = new Sequelize('sqlite://ananke.db');
+const sequelize = new Sequelize('sqlite://ananke.db', {logging: false});
 let taskModel = new Task(sequelize);
 let scheduleModel = new Schedule(sequelize);
 let executionModel = new Execution(sequelize);
