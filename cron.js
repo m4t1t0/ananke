@@ -11,7 +11,7 @@ let cronParserOptions = {
     tz: 'Europe/Madrid'
 };
 
-const sequelize = new Sequelize('sqlite://ananke.db', {logging: false});
+const sequelize = new Sequelize('sqlite://ananke.db');
 let taskModel = new Task(sequelize);
 let executionModel = new Execution(sequelize);
 
