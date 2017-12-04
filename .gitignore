@@ -1,4 +1,5 @@
 node_modules
+ananke.db
 .idea
 .pm2
-ananke.db
+.config
