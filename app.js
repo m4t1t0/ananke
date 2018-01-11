@@ -49,8 +49,10 @@ router.get('/schedule/add', function *() {
 router.get('/task/:id', function *(next) {
     let myTask = yield taskModel.findById(this.params.id);
 
+    let schedules = yield scheduleModel.findAll();
+
     if (myTask !== null) {
-        this.render('edit_task.pug', {task: myTask});
+        this.render('edit_task.pug', {task: myTask, schedules: schedules});
     } else {
         this.status = 404;
         this.body = {http_code: 404, error_msg: 'Task not found!'};

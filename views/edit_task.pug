@@ -24,7 +24,9 @@ html(lang="en")
             div(class="form-group col-md-12")
                 label(for="task-schedule" class="col-md-2") Schedule
                 div(class="form-group col-md-6")
-                    select(class="form-control" id="task-schedule" name="task-schedule")=task.schedule_id
+                    select(class="form-control" id="task-schedule" name="task-schedule")
+                        each schedule in schedules
+                            option(value=schedule.id selected=schedule.id==task.schedule_id)=schedule.name + ' [ ' + schedule.pattern + ' ]'
                 div(class="form-group col-md-4")
                     button(class="form-control" type="button" id="manage-schedules-button" class="btn btn-default") Manage schedules
 
