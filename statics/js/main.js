@@ -166,18 +166,18 @@ $(document).ready(function() {
         });
     });
 
-    $.ajax({
-        url: '/ajax/schedules',
-        type: 'GET',
-        success: function(data) {
-            $.each(data.data, function (i, item) {
-                $('#task-schedule').append($('<option>', {
-                    value: item.id,
-                    text : item.name + ' [ ' + item.pattern + ' ]'
-                }));
-            });
-        }
-    });
+    // $.ajax({
+    //     url: '/ajax/schedules',
+    //     type: 'GET',
+    //     success: function(data) {
+    //         $.each(data.data, function (i, item) {
+    //             $('#task-schedule').append($('<option>', {
+    //                 value: item.id,
+    //                 text : item.name + ' [ ' + item.pattern + ' ]'
+    //             }));
+    //         });
+    //     }
+    // });
 
     $('#tasks-table').on('load-success.bs.table', function() {
         let data = $('#tasks-table').bootstrapTable('getData');
