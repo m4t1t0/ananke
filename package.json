@@ -9,14 +9,15 @@
   "author": "Rafael Matito",
   "license": "ISC",
   "dependencies": {
-    "cron-parser": "^2.4.0",
-    "koa": "^1.4.0",
+    "cron-parser": "^2.4.4",
+    "koa": "^1.5.1",
     "koa-body": "^1.6.0",
     "koa-pug": "^3.0.0-1",
     "koa-router": "^5.4.2",
     "koa-static": "^2.1.0",
-    "moment": "^2.18.1",
-    "sequelize": "^3.30.4",
+    "moment": "^2.20.1",
+    "nodemon": "^1.14.12",
+    "sequelize": "^3.31.2",
     "sqlite3": "^3.1.13"
   }
 }
