@@ -35,7 +35,9 @@ router.get('/', function *() {
 });
 
 router.get('/task/add', function *() {
-    this.render('edit_task.pug', {task: {}});
+    let schedules = yield scheduleModel.findAll();
+
+    this.render('edit_task.pug', {task: {}, schedules: schedules});
 });
 
 router.get('/schedules', function *() {
@@ -87,8 +89,6 @@ router.get('/ajax/tasks', function *(next) {
             active: task.active
         });
     }
-
-    console.log(result);
 
     this.body = {http_code: 200, data: result};
 });
