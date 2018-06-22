@@ -8,12 +8,12 @@ html(lang="en")
 
             button(type="button" id="add-new-schedule-button" class="btn btn-default") Add new
             table(id="schedules-table" data-toggle="table" data-url="/ajax/schedules" data-pagination="true"
-                data-search="true")
+                data-search="true" data-page-size="50")
                 thead
                     tr
                         th(data-field="name" data-sortable="true") Name
                         th(data-field="pattern" data-sortable="false" data-searchable="false") Pattern
                         th(data-sortable="false" data-searchable="false" data-field="operate"
                             data-formatter="operateFormatterSchedule" data-events="operateEvents"
-                            data-width="60px") Actions
+                            data-width="80px") Actions
 
