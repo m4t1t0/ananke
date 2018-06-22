@@ -1,7 +1,15 @@
 'use strict';
 
 function operateFormatterTask(value, row, index) {
+    let statusLink = '';
+    if (row.status === 0 || row.status === 1) {
+        statusLink = '<a class="ananke-action-row icon-execution glyphicon glyphicon-list-alt" id="execution-task" href="" data-task-id="' + row.id + '"></a>';
+    } else {
+        statusLink = '<span class="ananke-action-row icon-execution">-</span>';
+    }
+
     return [
+        statusLink,
         '<a class="ananke-action-row icon-edit" id="edit-task" href="javascript:void(0)" title="Edit">',
         '<i class="glyphicon glyphicon-pencil"></i>',
         '</a>',
@@ -23,9 +31,6 @@ function operateFormatterSchedule(value, row, index) {
 }
 
 function rowStyle(row, index) {
-
-    console.log(row);
-
     if (row.active == 0) {
         return {
             classes: 'execution-inactive'
@@ -59,6 +64,21 @@ window.operateEvents = {
             }
         });
     },
+    'click #execution-task': function (e, value, row, index) {
+        $('#modal-execution').fadeTo(100, 1);
+        $('#modal-execution').show();
+
+        let executionId = $(this).data('taskId');
+        $.ajax({
+            url: '/ajax/execution/' + executionId,
+            type: 'GET',
+            success: function(data) {
+                $('#excecution-content').html(data.data[0].output);
+            }
+        });
+
+        e.preventDefault();
+    },
 
     'click #edit-schedule': function (e, value, row, index) {
         $(location).attr('href', '/schedule/' + row.id);
@@ -90,22 +110,6 @@ $(document).ready(function() {
     $('#modal-close-button').on('click', function() {
         $('#modal-execution').fadeTo(100, 0);
         $('#modal-execution').hide();
-    });
-
-    $(document).on('click', '.execution-status', function(e) {
-        $('#modal-execution').fadeTo(100, 1);
-        $('#modal-execution').show();
-
-        let executionId = $(this).data('taskId');
-        $.ajax({
-            url: '/ajax/execution/' + executionId,
-            type: 'GET',
-            success: function(data) {
-                $('#excecution-content').html(data.data[0].output);
-            }
-        });
-
-        e.preventDefault();
     });
 
     $('#task-edit-submit').on('click', function() {
@@ -164,43 +168,6 @@ $(document).ready(function() {
                 errorMessageContainer.show();
             }
         });
-    });
-
-    // $.ajax({
-    //     url: '/ajax/schedules',
-    //     type: 'GET',
-    //     success: function(data) {
-    //         $.each(data.data, function (i, item) {
-    //             $('#task-schedule').append($('<option>', {
-    //                 value: item.id,
-    //                 text : item.name + ' [ ' + item.pattern + ' ]'
-    //             }));
-    //         });
-    //     }
-    // });
-
-    $('#tasks-table').on('load-success.bs.table', function() {
-        let data = $('#tasks-table').bootstrapTable('getData');
-
-        for (let i = 0; i < data.length; i++) {
-            let dataRow = data[i];
-            switch (dataRow.status) {
-                case 0:
-                    $('#tasks-table').bootstrapTable('updateCell', {
-                        index: i,
-                        field: 'status_icon',
-                        value: '<a class="execution-status glyphicon glyphicon-list-alt" href="" data-task-id="' + dataRow.id + '"></a>'
-                    });
-                    break;
-                case 1:
-                    $('#tasks-table').bootstrapTable('updateCell', {
-                        index: i,
-                        field: 'status_icon',
-                        value: '<a class="execution-status glyphicon glyphicon-list-alt" href="" data-task-id="' + dataRow.id + '"></a>'
-                    });
-                    break;
-            }
-        }
     });
 });
 
