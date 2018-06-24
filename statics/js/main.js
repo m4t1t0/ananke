@@ -65,18 +65,7 @@ window.operateEvents = {
         });
     },
     'click #execution-task': function (e, value, row, index) {
-        $('#modal-execution').fadeTo(100, 1);
-        $('#modal-execution').show();
-
-        let executionId = $(this).data('taskId');
-        $.ajax({
-            url: '/ajax/execution/' + executionId,
-            type: 'GET',
-            success: function(data) {
-                $('#excecution-content').html(data.data[0].output);
-            }
-        });
-
+        window.open('/executions/' + row.id);
         e.preventDefault();
     },
 
@@ -105,11 +94,6 @@ $(document).ready(function() {
 
     $('#add-new-schedule-button').on('click', function() {
         window.location = '/schedule/add';
-    });
-
-    $('#modal-close-button').on('click', function() {
-        $('#modal-execution').fadeTo(100, 0);
-        $('#modal-execution').hide();
     });
 
     $('#task-edit-submit').on('click', function() {

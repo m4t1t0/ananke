@@ -33,6 +33,17 @@ class Execution extends Base {
             type: this.db.QueryTypes.DELETE
         });
     }
+
+    findByTaskId(taskId) {
+        let sql = "SELECT e.id, e.status, e.output, e.createdAt" +
+            " FROM execution e" +
+            " WHERE e.task_id = :task_id";
+        return this.db.query(sql, {
+                replacements: {task_id: taskId},
+                type: this.db.QueryTypes.SELECT
+            }
+        );
+    }
 }
 
 module.exports = Execution;

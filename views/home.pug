@@ -6,17 +6,6 @@ html(lang="en")
         div(class="container-fluid")
             include nav.pug
 
-            div(id="modal-execution" class="modal fade")
-                div(class="modal-dialog")
-                    div(class="modal-content")
-                        div(class="modal-header")
-                            button(type="button" class="close" data-dismiss="modal" aria-hidden="true")
-                            h4(class="modal-title") Execution output
-                        div(class="modal-body")
-                            textarea(id="excecution-content")
-                        div(class="modal-footer")
-                            button(id="modal-close-button" type="button" class="btn btn-default" data-dismiss="modal") Close
-
             button(type="button" id="add-new-task-button" class="btn btn-default") Add new
             button(type="button" id="manage-schedules-button" class="btn btn-default") Manage schedules
 

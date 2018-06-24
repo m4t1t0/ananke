@@ -72,6 +72,17 @@ router.get('/schedule/:id', function *(next) {
     }
 });
 
+router.get('/executions/:id', function *(next) {
+    let myTask = yield taskModel.findById(this.params.id);
+
+    if (myTask !== null) {
+        this.render('executions.pug', {task: myTask});
+    } else {
+        this.status = 404;
+        this.body = {http_code: 404, error_msg: 'Task not found!'};
+    }
+});
+
 //------------------------------------------
 // Ajax routes
 //------------------------------------------
@@ -129,6 +140,25 @@ router.get('/ajax/execution/:id', function *(next) {
         this.status = 404;
         this.body = {http_code: 404, error_msg: 'Execution not found!'};
     }
+});
+
+router.get('/ajax/executions/:id', function *(next) {
+
+    console.log(this.params);
+
+    let result = [];
+    let executions = yield executionModel.findByTaskId(this.params.id);
+
+    for (let execution of executions) {
+        result.push({
+            id: execution.id,
+            status: execution.status,
+            output: execution.output,
+            createdAt: execution.createdAt
+        });
+    }
+
+    this.body = {http_code: 200, data: result};
 });
 
 router.post('/ajax/task', koaBody, function *(next) {

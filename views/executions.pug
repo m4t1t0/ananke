@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+    include head.pug
+
+    body
+        div(class="container-fluid")
+            include nav.pug
+
+            table(id="executions-table" data-toggle="table" data-url="/ajax/executions/"+task.id data-pagination="true"
+                data-page-size="50")
+                thead
+                    tr
+                        th(data-field="status" data-sortable="true") Status
+                        th(data-field="output" data-sortable="true") Output
+                        th(data-field="createdAt" data-sortable="true") Creation
