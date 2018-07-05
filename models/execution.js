@@ -27,11 +27,11 @@ class Execution extends Base {
     }
 
     deleteLast(taskId) {
-        /*let sql = "DELETE FROM execution WHERE task_id = :task_id";
+        let sql = "DELETE FROM execution WHERE createdAt <= '2010-01-01 00:00:00'";
         return this.db.query(sql, {
             replacements: {task_id: taskId},
             type: this.db.QueryTypes.DELETE
-        });*/
+        });
     }
 
     findByTaskId(taskId) {
