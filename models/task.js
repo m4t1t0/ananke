@@ -50,10 +50,10 @@ class Task extends Base {
     }
 
     findAllWithExecution() {
-        let sql = "SELECT t.id, t.name, t.description, t.command, t.active, s.name AS schedule_name, s.pattern, e.status" +
+        let sql = "SELECT t.id, t.name, t.description, t.command, t.active, s.name AS schedule_name, s.pattern, q.status" +
             " FROM task t" +
             " INNER JOIN schedule s ON t.schedule_id = s.id" +
-            " LEFT JOIN execution e ON e.task_id = t.id";
+            " LEFT JOIN (SELECT MAX(id) AS mid, task_id, status FROM execution GROUP BY task_id) q ON  q.task_id = t.id";
         return this.db.query(sql, {type: this.db.QueryTypes.SELECT});
     }
 }
