@@ -27,7 +27,8 @@ class Execution extends Base {
     }
 
     deleteLast(taskId) {
-        let sql = "DELETE FROM execution WHERE createdAt <= '2010-01-01 00:00:00'";
+        let sql = "DELETE FROM execution WHERE ID NOT IN (SELECT id FROM execution" +
+            " WHERE task_id = :task_id ORDER BY createdAt DESC LIMIT 9)";
         return this.db.query(sql, {
             replacements: {task_id: taskId},
             type: this.db.QueryTypes.DELETE
