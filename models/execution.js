@@ -27,8 +27,8 @@ class Execution extends Base {
     }
 
     deleteLast(taskId) {
-        let sql = "DELETE FROM execution WHERE ID NOT IN (SELECT id FROM execution" +
-            " WHERE task_id = :task_id ORDER BY createdAt DESC LIMIT 9)";
+        let sql = "DELETE FROM execution WHERE task_id = :task_id AND id NOT IN" +
+            " (SELECT id FROM execution WHERE task_id = :task_id ORDER BY createdAt DESC LIMIT 9)";
         return this.db.query(sql, {
             replacements: {task_id: taskId},
             type: this.db.QueryTypes.DELETE
