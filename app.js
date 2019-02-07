@@ -143,9 +143,6 @@ router.get('/ajax/execution/:id', function *(next) {
 });
 
 router.get('/ajax/executions/:id', function *(next) {
-
-    console.log(this.params);
-
     let result = [];
     let executions = yield executionModel.findByTaskId(this.params.id);
 

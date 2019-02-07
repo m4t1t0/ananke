@@ -38,7 +38,8 @@ class Execution extends Base {
     findByTaskId(taskId) {
         let sql = "SELECT e.id, e.status, e.output, e.createdAt" +
             " FROM execution e" +
-            " WHERE e.task_id = :task_id";
+            " WHERE e.task_id = :task_id" +
+            " ORDER BY e.createdAt DESC";
         return this.db.query(sql, {
                 replacements: {task_id: taskId},
                 type: this.db.QueryTypes.SELECT
