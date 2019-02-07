@@ -24,6 +24,9 @@ function operateFormatterSchedule(value, row, index) {
         '<a class="ananke-action-row icon-edit" id="edit-schedule" href="javascript:void(0)" title="Edit">',
         '<i class="glyphicon glyphicon-pencil"></i>',
         '</a>',
+        '<a class="ananke-action-row icon-edit" id="view-tasks-schedule" href="javascript:void(0)" title="View tasks">',
+        '<i class="glyphicon glyphicon-th-list"></i>',
+        '</a>',
         '<a class="ananke-action-row icon-remove" id="remove-schedule" href="javascript:void(0)" title="Remove">',
         '<i class="glyphicon glyphicon-trash"></i>',
         '</a>'
@@ -31,7 +34,7 @@ function operateFormatterSchedule(value, row, index) {
 }
 
 function rowStyle(row, index) {
-    if (row.active == 0) {
+    if (row.active === 0) {
         return {
             classes: 'execution-inactive'
         };
@@ -71,6 +74,9 @@ window.operateEvents = {
 
     'click #edit-schedule': function (e, value, row, index) {
         $(location).attr('href', '/schedule/' + row.id);
+    },
+    'click #view-tasks-schedule': function (e, value, row, index) {
+        $(location).attr('href', '/schedule/' + row.id + '/tasks');
     },
     'click #remove-schedule': function (e, value, row, index) {
         $.ajax({

@@ -72,6 +72,17 @@ router.get('/schedule/:id', function *(next) {
     }
 });
 
+router.get('/schedule/:id/tasks', function *(next) {
+    let mySchedule = yield scheduleModel.findById(this.params.id);
+
+    if (mySchedule !== null) {
+        this.render('tasks_schedule.pug', {schedule: mySchedule});
+    } else {
+        this.status = 404;
+        this.body = {http_code: 404, error_msg: 'Schedule not found!'};
+    }
+});
+
 router.get('/executions/:id', function *(next) {
     let myTask = yield taskModel.findById(this.params.id);
 
@@ -225,6 +236,21 @@ router.del('/ajax/schedule/:id', function *(next) {
         this.status = 404;
         this.body = {http_code: 404, error_msg: 'Schedule not found!'};
     }
+});
+
+router.get('/ajax/schedule/:id/tasks', function *(next) {
+    let result = [];
+    let tasks = yield scheduleModel.findTasksByScheduleId(this.params.id);
+
+    for (let task of tasks) {
+        result.push({
+            id: task.id,
+            name: task.name,
+            description: task.description
+        });
+    }
+
+    this.body = {http_code: 200, data: result};
 });
 //------------------------------------------
 

@@ -22,6 +22,14 @@ class Schedule extends Base {
             timestamps: true
         });
     }
+
+    findTasksByScheduleId(idTask) {
+        let sql = "SELECT t.id, t.name, t.description" +
+            " FROM task t" +
+            " INNER JOIN schedule s ON t.schedule_id = s.id" +
+            " WHERE s.id = $id";
+        return this.db.query(sql, {bind: {id: idTask}, type: this.db.QueryTypes.SELECT});
+    }
 }
 
 module.exports = Schedule;

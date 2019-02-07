@@ -32,15 +32,6 @@ class Task extends Base {
         });
     }
 
-    //TODO: Refactorizar para no tener tantos métodos similares
-
-    findAllWithPattern() {
-        let sql = "SELECT t.id, t.name, t.description, s.pattern, t.command, t.active" +
-            " FROM task t" +
-            " INNER JOIN schedule s ON t.schedule_id = s.id";
-        return this.db.query(sql, {type: this.db.QueryTypes.SELECT});
-    }
-
     findActiveWithPattern() {
         let sql = "SELECT t.id, t.name, t.description, s.pattern, t.command, t.active" +
             " FROM task t" +

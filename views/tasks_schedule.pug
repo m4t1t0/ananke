@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+    include head.pug
+
+    body
+        div(class="container-fluid")
+            include nav.pug
+
+            table(id="executions-table" data-toggle="table" data-url="/ajax/schedule/" + schedule.id + "/tasks"
+                data-pagination="true" data-search="true" data-row-style="rowStyle" data-page-size="50")
+                thead
+                    tr()
+                        th(data-field="id" data-sortable="true") Id
+                        th(data-field="name" data-sortable="true") Name
+                        th(data-field="description" data-sortable="true") Description
