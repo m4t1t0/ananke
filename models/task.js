@@ -61,7 +61,8 @@ class Task extends Base {
             " FROM task t" +
             " INNER JOIN schedule s ON t.schedule_id = s.id" +
             " LEFT JOIN (SELECT MAX(id) AS mid, task_id, status FROM execution GROUP BY task_id) q ON  q.task_id = t.id" +
-            " WHERE t.id IN (" +
+            " WHERE t.active = 1" +
+            " AND t.id IN (" +
             "    SELECT t.id" +
             "    FROM task t" +
             "    INNER JOIN (SELECT MAX(id) AS max_execution, task_id, status FROM execution GROUP BY task_id) q on q.task_id = t.id" +
