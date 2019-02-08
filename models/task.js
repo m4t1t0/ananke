@@ -52,7 +52,8 @@ class Task extends Base {
         let sql = "SELECT COUNT(t.id) AS num_failed" +
             " FROM task t" +
             " INNER JOIN (SELECT MAX(id) AS max_execution, task_id, status FROM execution GROUP BY task_id) q on q.task_id = t.id" +
-            " WHERE q.status = 1";
+            " WHERE q.status = 1" +
+            " AND q.active = 1";
         return this.db.query(sql, {type: this.db.QueryTypes.SELECT});
     }
 
