@@ -45,3 +45,20 @@ a.execution-status {
   word-wrap: break-word;
   table-layout: fixed;
 }
+.failed-tasks-container {
+  float: right;
+  border: 1px solid #d3d3d3;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+}
+.failed-tasks-container a {
+  color: #ff5454;
+}
+.failed-tasks-container .success {
+  color: #008000;
+}
+div.search {
+  width: 400px;
+}

@@ -38,8 +38,25 @@ a.ananke-action-row, a.execution-status
   min-height 400px
 
 .pagination-detail
-  display: none
+  display none
 
 #tasks-table
-  word-wrap: break-word
-  table-layout: fixed
+  word-wrap break-word
+  table-layout fixed
+
+.failed-tasks-container
+  float right
+  border 1px solid lightgrey
+  padding 4px 10px
+  border-radius 5px
+  font-weight bold
+  font-size 16px
+
+.failed-tasks-container a
+  color error-red
+
+.failed-tasks-container .success
+  color: green
+
+div.search
+  width 400px

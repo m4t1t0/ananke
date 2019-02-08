@@ -47,6 +47,28 @@ class Task extends Base {
             " LEFT JOIN (SELECT MAX(id) AS mid, task_id, status FROM execution GROUP BY task_id) q ON  q.task_id = t.id";
         return this.db.query(sql, {type: this.db.QueryTypes.SELECT});
     }
+
+    getNumberFailedTasks() {
+        let sql = "SELECT COUNT(t.id) AS num_failed" +
+            " FROM task t" +
+            " INNER JOIN (SELECT MAX(id) AS max_execution, task_id, status FROM execution GROUP BY task_id) q on q.task_id = t.id" +
+            " WHERE q.status = 1";
+        return this.db.query(sql, {type: this.db.QueryTypes.SELECT});
+    }
+
+    findAllFailedWithExecution() {
+        let sql = "SELECT t.id, t.name, t.description, t.command, t.active, s.name AS schedule_name, s.pattern, q.status" +
+            " FROM task t" +
+            " INNER JOIN schedule s ON t.schedule_id = s.id" +
+            " LEFT JOIN (SELECT MAX(id) AS mid, task_id, status FROM execution GROUP BY task_id) q ON  q.task_id = t.id" +
+            " WHERE t.id IN (" +
+            "    SELECT t.id" +
+            "    FROM task t" +
+            "    INNER JOIN (SELECT MAX(id) AS max_execution, task_id, status FROM execution GROUP BY task_id) q on q.task_id = t.id" +
+            "    WHERE q.status = 1" +
+            " )";
+        return this.db.query(sql, {type: this.db.QueryTypes.SELECT});
+    }
 }
 
 module.exports = Task;

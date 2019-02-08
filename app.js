@@ -31,13 +31,19 @@ app.use(serve('statics'));
 // HTML routes
 //------------------------------------------
 router.get('/', function *() {
-    this.render('home.pug');
+    let row = yield taskModel.getNumberFailedTasks();
+
+    this.render('home.pug', {num_failed: row[0].num_failed});
 });
 
 router.get('/task/add', function *() {
     let schedules = yield scheduleModel.findAll();
 
     this.render('edit_task.pug', {task: {}, schedules: schedules});
+});
+
+router.get('/tasks/failed', function *() {
+    this.render('failed_tasks.pug');
 });
 
 router.get('/schedules', function *() {
@@ -100,6 +106,24 @@ router.get('/executions/:id', function *(next) {
 router.get('/ajax/tasks', function *(next) {
     let result = [];
     let tasks = yield taskModel.findAllWithExecution();
+
+    for (let task of tasks) {
+        result.push({
+            id: task.id,
+            name: task.name,
+            schedule_name: task.schedule_name,
+            command: task.command,
+            status: task.status,
+            active: task.active
+        });
+    }
+
+    this.body = {http_code: 200, data: result};
+});
+
+router.get('/ajax/tasks/failed', function *(next) {
+    let result = [];
+    let tasks = yield taskModel.findAllFailedWithExecution();
 
     for (let task of tasks) {
         result.push({
